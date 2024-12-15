@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 
 const app = express();
 app.use(cors({
-    origin: '',
+    origin: 'https://chatbot-frontend-rho-three.vercel.app/',
     methods: ['GET', 'POST'],
     credentials: true,
 }));
