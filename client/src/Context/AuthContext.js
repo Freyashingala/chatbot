@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
 
 const AuthContext = createContext();
+const API_URL = 'https://chatbot-server-bice.vercel.app/server/auth/login';
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -9,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     // Register function
     const register = async (username, password) => {
         try {
-            const response = await axios.post("/server/auth/register", { username, password });
+            const response = await axios.post(API_URL, { username, password });
             return response; // Return the full response to be handled in the frontend
         } catch (error) {
             // Handle error properly and rethrow it for handling in the frontend
@@ -24,7 +25,7 @@ export const AuthProvider = ({ children }) => {
     // In AuthContext.js
 const login = async (username, password) => {
     try {
-        const response = await axios.post("/server/auth/login", { username, password });
+        const response = await axios.post(API_URL, { username, password });
         setUser(username); // Make sure userData contains at least the username
         return response; // Return the response to handle it in the frontend if needed
     } catch (error) {
