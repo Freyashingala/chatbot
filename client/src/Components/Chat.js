@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useAuth } from '../Context/AuthContext';
 import Prism from 'prismjs';
-import 'prismjs/themes/prism.css'; // Or any other theme you prefer
+import 'prismjs/themes/prism.css';
 import { MdContentCopy } from "react-icons/md";
 import { HiMiniSpeakerWave } from "react-icons/hi2";
 import FileUpload from './fileUpload';
@@ -15,7 +15,7 @@ const Chat = () => {
   const { logout, user } = useAuth(); 
   const [question, setQuestion] = useState('');
   const [conversation, setConversation] = useState([]);
-  const [history, setHistory] = useState([]); // State for chat history
+  const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -26,37 +26,30 @@ const Chat = () => {
   
   const backendUrl = "chatbot-server-wheat-eight.vercel.app";
 
-  // Function to submit question to the server
   const askQuestion = async () => {
-    if (!question.trim() && !attachedFile) return;  // Prevent empty submissions
+    if (!question.trim() && !attachedFile) return;
   
     setLoading(true);
   
-    // Create user message with attached file
     const userMessage = { role: 'user', content: question, file: attachedFile };
   
     try {
-      // Add user message to the conversation
       setConversation((prev) => [...prev, userMessage]);
   
-      // Prepare the form data
       const formData = new FormData();
       formData.append('message', question);
       if (attachedFile) {
         formData.append('file', attachedFile);
       }
   
-      // Make the request to the backend
       const response = await axios.post(`${backendUrl}/chat`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
   
-      // Extract AI response
       const aiMessage = { role: 'Gemini', content: response.data.reply };
   
-      // Add the AI response to the conversation
       setConversation((prev) => [...prev, aiMessage]);
   
     } catch (error) {
@@ -66,7 +59,7 @@ const Chat = () => {
     } finally {
       setLoading(false);
       setQuestion('');
-      setAttachedFile(null);  // Clear attached file after submitting
+      setAttachedFile(null);
       chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   };
