@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     // In AuthContext.js
 const login = async (username, password) => {
     try {
-        const response = await axios.post("/api/auth/login", { username, password });
+        const response = await axios.post("/server/auth/login", { username, password });
         setUser(username); // Make sure userData contains at least the username
         return response; // Return the response to handle it in the frontend if needed
     } catch (error) {
