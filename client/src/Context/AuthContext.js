@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
 
 const AuthContext = createContext();
-const API_URL = 'https://chatbot-server-bice.vercel.app/server/auth/login';
+const API_URL = 'https://chatbot-server-bice.vercel.app/server/auth';
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
