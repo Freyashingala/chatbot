@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
 
 const AuthContext = createContext();
-const API_URL = 'https://ai-chatbot-96ie.onrender.com/auth';
+const API_URL = 'https://ai-chatbot-96ie.onrender.com';
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     // Register function
     const register = async (username, password) => {
         try {
-            const response = await axios.post(`${API_URL}/register`, { username, password });
+            const response = await axios.post(`${API_URL}/auth/register`, { username, password });
             return response; // Return the full response to be handled in the frontend
         } catch (error) {
             // Handle error properly and rethrow it for handling in the frontend
@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
     // Login function
     const login = async (username, password) => {
         try {
-            const response = await axios.post(API_URL, { username, password });
+            const response = await axios.post(`${API_URL}/auth/login`, { username, password });
             
             // Store the token in localStorage
             if (response.data && response.data.token) {
@@ -37,9 +37,11 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             if (error.response) {
                 // If the server responded with a status outside the 2xx range
+                console.error('Server Error:', error.response);
                 throw error.response;
             } else {
                 // If the request was made but no response was received
+                console.error('No Server Response:', error);
                 throw new Error('No Server Response');
             }
         }
