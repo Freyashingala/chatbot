@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
     } catch (error) {
         console.error("Error registering user:", error);
 
-        if (error.code === 11000) {  // MongoDB duplicate key error code
+        if (error.code === 11000) {
             res.status(409).json({ message: "Username already exists" });
         } else {
             res.status(400).json({ message: error.message });

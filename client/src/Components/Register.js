@@ -30,7 +30,9 @@ const Register = () => {
     const [success, setSuccess] = useState(false);
 
     useEffect(() => {
-        userRef.current.focus();
+        if(userRef.current) {
+            userRef.current.focus();
+        }
     }, [])
 
     useEffect(() => {
@@ -56,7 +58,7 @@ const Register = () => {
         }
     
         try {
-            const response = await register(username, password); // This will now return the correct response
+            const response = await register(username, password);
     
             if (response && response.status === 201) {
                 setSuccess(true);
@@ -67,7 +69,9 @@ const Register = () => {
             }
         } catch (err) {
             // Handle specific errors
-            if (err.message === 'Username already exists') {
+            if (err.status === 409) {
+                setErrMsg('Username already taken. Please choose another.');
+            } else if (err.message === 'Username already exists') {
                 setErrMsg('Username already taken. Please choose another.');
             } else {
                 setErrMsg(err.message || 'Registration Failed');

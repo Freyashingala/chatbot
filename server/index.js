@@ -25,6 +25,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(express.static('public'));
 app.use("/auth", authRoutes);
 
 const uploadsDir = path.join(__dirname, 'uploads');

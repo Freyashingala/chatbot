@@ -15,7 +15,9 @@ const Login = () => {
     const [success, setSuccess] = useState(false);
 
     useEffect(() => {
-        userRef.current.focus();
+        if(userRef.current) {
+            userRef.current.focus();
+        }
     }, []);
 
     useEffect(() => {
