@@ -24,7 +24,7 @@ const Chat = () => {
   const chatEndRef = useRef(null);
   const navigate = useNavigate();
   
-  const backendUrl = "chatbot-server-wheat-eight.vercel.app";
+  const backendUrl = "https://ai-chatbot-96ie.onrender.com";
 
   const askQuestion = async () => {
     if (!question.trim() && !attachedFile) return;
